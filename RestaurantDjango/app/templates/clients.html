@@ -1,0 +1,54 @@
+{% extends "template.html" %}
+{% block title %}Клиенты{% endblock %}
+
+{% block content %}
+{% include "confirm.html" %}
+<script type="text/javascript">
+    function ShowConfirmDelete(id)
+    {
+        ShowConfirm(
+            "Клиент и все его заказы будут удалены. Удалить клиента?",
+            "Удаление клиента",
+            () => {
+                document.location.href = 'clients/delete?id=' + id;
+            }
+        );
+    }
+</script>
+<div class="row" style="margin-top:-10px;">
+    <div class="col-md-8">
+{% block bodytitle %}
+        <h2>Клиенты</h2><br>
+{% endblock %}
+    </div>
+    <div class="col-md-4" align="right">
+        <form method="get" class="form-inline" style="margin-top:20px;">
+            <input type="text" name="search" maxlength="200" class="form-control" placeholder="Поиск...">
+            <button class="btn btn-primary" type="submit">Поиск</button>
+        </form>
+    </div>
+</div>
+<table class="table table-hover">
+    <thead class="thead">
+        <tr>
+            <th>#</th>
+            <th class="col-sm-4">ФИО</th>
+            <th class="col-sm-5">Телефон</th>
+            <th class="col-sm-3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in pageData %}
+            <tr>
+                <td>{{forloop.counter|add:pageItemStartFrom}}</td>
+                <td><a href="clients/{{client.id}}">{{client.surname}}&nbsp;{{client.name}}&nbsp;{{client.otch}}</a></td>
+                <td>{{client.phone}}</td>
+                <td align="right"><button class="btn btn-danger btn-sm" onclick="ShowConfirmDelete({{client.id}})">Удалить</button></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% block pagination %}
+    {% include "pagination.html" %}
+{% endblock %}
+{% endblock %}

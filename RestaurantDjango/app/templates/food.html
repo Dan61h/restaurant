@@ -1,0 +1,51 @@
+{% extends "template.html" %}
+{% block title %}Блюда{% endblock %}
+
+{% block content %}
+{% include "confirm.html" %}
+<script type="text/javascript">
+    function ShowConfirmDelete(id, name) {
+        ShowConfirm(
+            "Блюдо будет удалено из всех заказов! Удалить блюдо \"" + name + "\"?",
+            "Удаление блюда",
+            () => {
+                document.location.href = "food/delete?id=" + id;
+            }
+        );
+    }
+</script>
+<div class="row" style="margin-top:-10px;">
+    <div class="col-md-8">
+{% block bodytitle %}
+        <h2>Блюда</h2><br>
+{% endblock %}
+    </div>
+</div>
+<table class="table table-hover">
+    <thead class="thead">
+        <tr>
+            <th class="col-sm-3">Наименование</th>
+            <th class="col-sm-2">Стоимость</th>
+            <th class="col-sm-2">Размер порции</th>
+            <th class="col-sm-3">Описание</th>
+            <th class="col-sm-1"></th>
+            <th class="col-sm-1"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for food in pageData %}
+            <tr>
+                <td>{{food.name}}</td>
+                <td>{{food.price}}</td>
+                <td>{{food.portionsize}} {{food.measureid.name}}</td>
+                <td>{{food.description}}</td>
+                <td align="right"><a href="food/{{food.id}}/edit">Изменить</a></td>
+                <td align="right"><a onclick="ShowConfirmDelete({{food.id}},'{{food.name}}')">Удалить</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% block pagination %}
+    {% include "pagination.html"  %}
+{% endblock %}
+{% endblock %}

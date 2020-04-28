@@ -1,0 +1,35 @@
+<script type="text/javascript">
+    function ShowConfirm(text, caption, onYesClick, onNoClick)
+    {
+        $('#confirm-yes-btn').off('click');
+        $('#confirm-no-btn').off('click');
+
+        if(onYesClick !== undefined)
+        {
+            $('#confirm-yes-btn').click(onYesClick);
+        }
+        if(onNoClick !== undefined)
+        {
+            $('#confirm-no-btn').click(onNoClick);
+        }
+        $('#confirm-text').text(text);
+        $('#confirm-caption').text(caption);
+        $('#confirm').modal({});
+    }
+</script>
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="confirm-caption"></h4>
+            </div>
+            <div class="modal-body">
+                <h5 id="confirm-text"></h5>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-yes-btn" style="padding-left:25px; padding-right:25px;" type="button" class="btn btn-primary" data-dismiss="modal">Да</button>
+                <button id="confirm-no-btn" style="padding-left:25px; padding-right:25px;" type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+            </div>
+        </div>
+    </div>
+</div>

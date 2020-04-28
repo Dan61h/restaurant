@@ -1,0 +1,27 @@
+{% extends "template.html" %}
+{% block title %}Новый заказ{% endblock %}
+
+{% block content %}
+    <h2>{% block bodytitle %}Новый заказ{% endblock %}</h2><br>
+{% if error %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{error}}
+            </div>
+        </div>
+    </div>
+{% endif %}
+    {% block info %}<h5><b>Клиент: </b><a href="/clients/{{client.id}}">{{client.surname}} {{client.name}} {{client.otch}}</a></h5>{% endblock %}
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">{% csrf_token %}
+                <input type="text" name="comment" maxlength="200" class="form-control" placeholder="Введите комментарий к заказу" value="{{comment}}">
+                <br>
+                <button class="btn btn-primary" type="submit">{% block submitButtonText %}Создать заказ{% endblock %}</button>
+            </form>
+        </div>
+     </div>
+{% endblock %}

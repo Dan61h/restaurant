@@ -1,0 +1,36 @@
+{% extends "template.html" %}
+
+{% block title %}Единицы измерения{% endblock %}
+{% block content %}
+{% include "confirm.html" %}
+<script type="text/javascript">
+    function ShowConfirmDelete(id, name) {
+        ShowConfirm(
+            "Удалить единицу измерения \"" + name + "\"?",
+            "Подтверждение",
+            () => {
+                document.location.href = "measure/delete?id=" + id;
+            }
+        );
+    }
+</script>
+<h2>Единицы измерения</h2><br>
+{% for measure in measures %}
+<div style="margin-bottom:10px;">
+    <form method="post" action="measure/{{measure.id}}/edit">
+        {% csrf_token %}
+        {{forloop.counter}}.&nbsp;
+        <input type="text" name="name" value="{{measure.name}}" maxlength="10" placeholder="Ед. измерения" required/>
+        <button type="submit" class="btn btn-primary btn-sm" style="margin-left:5px;">Сохранить</button>
+        <button type="button" class="btn btn-danger btn-sm" style="margin-left:5px;" onclick="ShowConfirmDelete({{measure.id}}, '{{measure.name}}')">Удалить</button>
+    </form>
+</div>
+{% endfor %}
+<div style="margin-top:20px;">
+    <form method="post" action="measure/add">
+        {% csrf_token %}
+        <input type="text" name="name" value="" maxlength="10" placeholder="Название ед. изм." required/>
+        <button type="submit" class="btn btn-primary btn-sm" style="margin-left:5px;">Добавить</button>
+    </form>
+</div>
+{% endblock %}

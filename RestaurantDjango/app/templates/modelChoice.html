@@ -1,0 +1,6 @@
+<select class="form-control" name="{{name}}">
+    <option value=""></option>
+{% for item in source %}
+    <option value="{{item.id}}" {% with iid=item.id|stringformat:"i"%}{% if iid == selected %}selected{% endif %}{% endwith %}>{{item}}</option>
+{% endfor %}
+</select>

@@ -1,0 +1,11 @@
+{% if pageNumbers|length > 1 %}
+<ul class="pagination">
+    {% for pgnum in pageNumbers %}
+        {% if pgnum == -1 %}
+            <li><a>...</a></li>
+        {% else %}
+            <li {% if pgnum == curPage %}class="active"{% endif %}><a href="{{pageLink}}{{pgnum}}">{{pgnum}}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}

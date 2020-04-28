@@ -1,0 +1,45 @@
+{% extends "template.html" %}
+{% block title %}Просмотр клиента{% endblock %}
+
+{% block content %}
+{% include "confirm.html" %}
+<script type="text/javascript">
+    function ShowConfirmDelete(id) {
+        ShowConfirm(
+            "Удалить заказ #" + id + " ?",
+            "Удаление заказа",
+            () => {
+                document.location.href = "{{request.path}}/deleteorder?id=" + id;
+            }
+        );
+    }
+</script>
+    <h2>Просмотр клиента</h2><br>
+    <h5><b>ФИО: </b>{{client.surname}}&nbsp;{{client.name}}&nbsp;{{client.otch}}</h5>
+    <h5><b>Номер телефона: </b>{{client.phone}}</h5>
+    <a href="{{request.path}}/neworder" class="btn btn-primary">Новый заказ</a>
+    <a href="{{request.path}}/edit" class="btn btn-link">Изменить данные</a><br><br>
+    <table class="table table-hover">
+        <thead class="thead">
+            <tr>
+                <th class="col-sm-2">Номер заказа</th>
+                <th class="col-sm-3">Дата</th>
+                <th class="col-sm-6">Комментарий</th>
+                <th class="col-sm-1"></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in pageData %}
+            <tr>
+                <td><a href="/order/{{order.id}}">{{order.id}}</a></td>
+                <td>{{order.date}}</td>
+                <td>{{order.comment}}</td>
+                <td align="right"><a onclick="ShowConfirmDelete({{order.id}})">Удалить</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% block pagination %}
+    {% include "pagination.html" %}
+{% endblock %}
+{% endblock %}

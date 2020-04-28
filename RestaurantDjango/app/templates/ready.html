@@ -1,0 +1,26 @@
+{% extends "template.html" %}
+{% block title %}Готовые заказы{% endblock %}
+
+{% block content %}
+<h2>Готовые заказы</h2><br>
+<div class="row">
+<div class="col-sm-6">
+<table class="table table-hover">
+    <thead class="thead">
+        <tr>
+            <th class="col-sm-8"></th>
+            <th class="col-sm-4"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for order in readyOrders %}
+        <tr>
+            <td><a href="order/{{order.id}}"><h4>ЗАКАЗ #{{order.id}}</h4></a></td>
+            <td align="right"><a class="btn btn-success" href="ready/makeseen?id={{order.id}}">Скрыть</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+    </div>
+{% endblock %}

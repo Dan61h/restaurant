@@ -1,0 +1,14 @@
+{% extends "clients.html" %}
+{% block title %}Клиенты - результаты поиска{% endblock %}
+
+{% block bodytitle %}
+    {% if search == "" %}
+        <h3>Задан пустой поисковый запрос</h3><br>
+    {% else %}
+        <h3>Результаты поиска по запросу &quot;{{search}}&quot;</h3><br>
+    {% endif %}
+{% endblock %}
+
+{% block pagination %}
+    {% include "pagination.html" %}
+{% endblock %}

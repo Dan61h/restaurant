@@ -1,0 +1,34 @@
+{% extends "template.html" %}
+{% block title %}Добавить клиента{% endblock %}
+{% block content %}
+    <h2>{% block bodytitle %}Добавить клиента{% endblock %}</h2>
+    <br>
+{% if error %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{error}}
+            </div>
+        </div>
+    </div>
+{% endif %}
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">{% csrf_token %}
+                <input type="text" name="surname" maxlength="100" class="form-control" placeholder="Введите фамилию" value="{{surname}}" required>
+                <br>
+                <input type="text" name="name" maxlength="100" class="form-control" placeholder="Введите имя" value="{{name}}" required>
+                <br>
+                <input type="text" name="otch" maxlength="100" class="form-control" placeholder="Введите отчество" value="{{otch}}">
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon"><span class="glyphicon glyphicon-phone"></span></span>
+                    <input type="text" name="phone" maxlength="50" class="form-control" placeholder="Введите номер телефона" value="{{phone}}" required>
+                </div>
+                <br>
+                <button class="btn btn-primary" type="submit">{% block submitButtonText %}Добавить{% endblock %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

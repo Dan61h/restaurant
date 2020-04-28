@@ -1,0 +1,47 @@
+{% extends "template.html" %}
+{% block title %}Заказ #{{order.id}}{% endblock %}
+
+{% block content %}
+<h2>Заказ #{{order.id}}</h2><br>
+<h5><b>Клиент: </b><a href="/clients/{{client.id}}">{{client.surname}} {{client.name}} {{client.otch}}</a></h5>
+{% if order.comment != "" %}
+<h5><b>Комментарий к заказу: </b>{{order.comment}}</h5>
+{% endif %}
+<h4><b>ИТОГО: </b>{{total}}</h4><br>
+<a class="btn btn-primary" href="/order/{{order.id}}/addfood">Добавить блюда</a>
+<a class="btn btn-outline-primary" href="/order/{{order.id}}/edit">Изменить комментарий</a><br><br>
+<table class="table table-hover">
+    <thead class="thead">
+        <tr>
+            <th class="col-sm-3">Наименование</th>
+            <th class="col-sm-2">Стоимость за ед.</th>
+            <th class="col-sm-2">Количество</th>
+            <th class="col-sm-1">Статус</th>
+            <th class="col-sm-2"></th>
+            <th class="col-sm-2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for oFood in orderedFood %}
+            <tr>
+                <td>{{oFood.foodid.name}}</td>
+                <td>{{oFood.foodid.price}}</td>
+                <td>{{oFood.count}}</td>
+                <td>
+                    {% if oFood.ready %}
+                    <span style="color:green;">Готово</span>
+                    {% else %}
+                    <span style="color:red;">Не готово</span>
+                    {% endif %}
+                </td>
+                <td align="right">
+                    {% if oFood.ready == False %}
+                        <a href="/order/{{order.id}}/makeready?id={{oFood.id}}">Отметить как готовое</a>
+                    {% endif %}
+                </td>
+                <td align="right"><a href="/order/{{order.id}}/removefood?id={{oFood.id}}">Удалить из заказа</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
